@@ -1,9 +1,7 @@
 import yfinance as yf
 import streamlit as st
 import pandas as pd
-import pandas as pd
 import requests
-from yahoo_fin import news
 import json
 from transformers import AutoTokenizer, AutoModelForSequenceClassification,pipeline
 import numpy as np
@@ -26,8 +24,11 @@ def getTicker(company_name):
 
     res = requests.get(url=yfinance, params=params, headers={'User-Agent': user_agent})
     data = res.json()
-
-    company_code = data['quotes'][0]['symbol']
+    company_code=""
+    try:
+        company_code = data['quotes'][0]['symbol']
+    except:
+        pass
     return company_code
 
 
